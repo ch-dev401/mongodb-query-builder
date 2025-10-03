@@ -1,0 +1,93 @@
+# Coverage.py configuration file
+# See https://coverage.readthedocs.io/en/latest/config.html
+
+[run]
+# Source paths
+source = src/mongodb_query_builder
+
+# Omit patterns
+omit =
+    */tests/*
+    */test_*.py
+    */__pycache__/*
+    */site-packages/*
+    */.venv/*
+    */venv/*
+    setup.py
+
+# Enable branch coverage
+branch = True
+
+# Measure sub-processes
+parallel = True
+
+[report]
+# Exclusion patterns for lines that shouldn't be counted
+exclude_lines =
+    # Standard pragma
+    pragma: no cover
+    
+    # Defensive programming
+    raise AssertionError
+    raise NotImplementedError
+    
+    # Debugging code
+    def __repr__
+    def __str__
+    
+    # Abstract methods
+    @abstractmethod
+    @abc.abstractmethod
+    
+    # Type checking
+    if TYPE_CHECKING:
+    if typing.TYPE_CHECKING:
+    
+    # Main guard
+    if __name__ == .__main__.:
+    
+    # Conditional imports
+    except ImportError:
+    except ModuleNotFoundError:
+    
+    # Pass statements
+    ^\s*pass\s*$
+    
+    # Ellipsis
+    ^\s*\.\.\.\s*$
+
+# Precision for coverage percentage
+precision = 2
+
+# Show missing lines
+show_missing = True
+
+# Skip covered files in report
+skip_covered = False
+
+# Skip empty files
+skip_empty = True
+
+# Sort by different criteria (default is by coverage)
+# Options: name, stmts, miss, cover, missing
+sort = cover
+
+[html]
+# HTML report directory
+directory = htmlcov
+
+# Extra CSS
+extra_css = 
+
+# Title for HTML report
+title = MongoDB Query Builder Coverage Report
+
+[xml]
+# XML report file
+output = coverage.xml
+
+[json]
+# JSON report file
+output = coverage.json
+pretty_print = True
+show_contexts = True
