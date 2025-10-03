@@ -2,23 +2,19 @@
 Pytest configuration and shared fixtures
 """
 
-import pytest
 from datetime import datetime
-from bson import ObjectId
 from typing import Any, Dict, List
 
-# Import builders for testing
-from mongodb_query_builder import (
-    QueryFilter,
-    AggregateBuilder,
-    AtlasSearchBuilder,
-    CompoundBuilder
-)
+import pytest
+from bson import ObjectId
 
+# Import builders for testing
+from mongodb_query_builder import AggregateBuilder, AtlasSearchBuilder, CompoundBuilder, QueryFilter
 
 # ============================================================================
 # BASIC FIXTURES
 # ============================================================================
+
 
 @pytest.fixture
 def sample_objectid() -> ObjectId:
@@ -55,6 +51,7 @@ def sample_date_range() -> Dict[str, datetime]:
 # QUERY FILTER FIXTURES
 # ============================================================================
 
+
 @pytest.fixture
 def empty_query_filter() -> QueryFilter:
     """Fixture providing an empty QueryFilter"""
@@ -72,15 +69,19 @@ def complex_query_filter() -> QueryFilter:
     """Fixture providing a complex QueryFilter with multiple conditions"""
     return (
         QueryFilter()
-        .field("age").between(18, 65)
-        .field("status").equals("active")
-        .field("email").exists(True)
+        .field("age")
+        .between(18, 65)
+        .field("status")
+        .equals("active")
+        .field("email")
+        .exists(True)
     )
 
 
 # ============================================================================
 # AGGREGATE BUILDER FIXTURES
 # ============================================================================
+
 
 @pytest.fixture
 def empty_aggregate_builder() -> AggregateBuilder:
@@ -116,6 +117,7 @@ def complex_aggregate_builder() -> AggregateBuilder:
 # ============================================================================
 # ATLAS SEARCH FIXTURES
 # ============================================================================
+
 
 @pytest.fixture
 def empty_atlas_search_builder() -> AtlasSearchBuilder:
@@ -158,6 +160,7 @@ def complex_compound_builder() -> CompoundBuilder:
 # ============================================================================
 # SAMPLE DATA FIXTURES
 # ============================================================================
+
 
 @pytest.fixture
 def sample_user_document() -> Dict[str, Any]:
@@ -224,6 +227,7 @@ def sample_order_document() -> Dict[str, Any]:
 # EXPECTED RESULTS FIXTURES
 # ============================================================================
 
+
 @pytest.fixture
 def expected_simple_query() -> Dict[str, Any]:
     """Expected result for a simple query"""
@@ -239,12 +243,7 @@ def expected_range_query() -> Dict[str, Any]:
 @pytest.fixture
 def expected_or_query() -> Dict[str, Any]:
     """Expected result for an OR query"""
-    return {
-        "$or": [
-            {"role": "admin"},
-            {"role": "moderator"}
-        ]
-    }
+    return {"$or": [{"role": "admin"}, {"role": "moderator"}]}
 
 
 @pytest.fixture
@@ -261,14 +260,11 @@ def expected_simple_pipeline() -> List[Dict[str, Any]]:
 # PYTEST HOOKS
 # ============================================================================
 
+
 def pytest_configure(config):
     """Configure pytest with custom settings"""
-    config.addinivalue_line(
-        "markers", "unit: mark test as a unit test"
-    )
-    config.addinivalue_line(
-        "markers", "integration: mark test as an integration test"
-    )
+    config.addinivalue_line("markers", "unit: mark test as a unit test")
+    config.addinivalue_line("markers", "integration: mark test as an integration test")
 
 
 def pytest_collection_modifyitems(config, items):

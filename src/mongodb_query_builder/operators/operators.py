@@ -7,7 +7,7 @@ This module defines all MongoDB operators used in queries and aggregations.
 
 class Operator:
     """MongoDB Query Operators"""
-    
+
     # Comparison Operators
     EQ = "$eq"
     NE = "$ne"
@@ -17,17 +17,17 @@ class Operator:
     LTE = "$lte"
     IN = "$in"
     NIN = "$nin"
-    
+
     # Logical Operators
     AND = "$and"
     OR = "$or"
     NOT = "$not"
     NOR = "$nor"
-    
+
     # Element Operators
     EXISTS = "$exists"
     TYPE = "$type"
-    
+
     # Evaluation Operators
     REGEX = "$regex"
     OPTIONS = "$options"
@@ -36,18 +36,18 @@ class Operator:
     EXPR = "$expr"
     JSON_SCHEMA = "$jsonSchema"
     MOD = "$mod"
-    
+
     # Array Operators
     ALL = "$all"
     ELEM_MATCH = "$elemMatch"
     SIZE = "$size"
-    
+
     # Bitwise Operators
     BITS_ALL_CLEAR = "$bitsAllClear"
     BITS_ALL_SET = "$bitsAllSet"
     BITS_ANY_CLEAR = "$bitsAnyClear"
     BITS_ANY_SET = "$bitsAnySet"
-    
+
     # Geospatial Operators
     GEO_WITHIN = "$geoWithin"
     GEO_INTERSECTS = "$geoIntersects"
@@ -57,7 +57,7 @@ class Operator:
 
 class AggregateOperator:
     """MongoDB Aggregation Pipeline Operators"""
-    
+
     # Pipeline Stages
     ADD_FIELDS = "$addFields"
     BUCKET = "$bucket"
@@ -89,7 +89,7 @@ class AggregateOperator:
     UNION_WITH = "$unionWith"
     UNSET = "$unset"
     UNWIND = "$unwind"
-    
+
     # Accumulator Operators (for $group)
     AVG = "$avg"
     FIRST = "$first"
@@ -101,7 +101,7 @@ class AggregateOperator:
     STD_DEV_POP = "$stdDevPop"
     STD_DEV_SAMP = "$stdDevSamp"
     SUM = "$sum"
-    
+
     # Expression Operators
     ABS = "$abs"
     CONCAT = "$concat"
@@ -131,7 +131,7 @@ class AggregateOperator:
 
 class UpdateOperator:
     """MongoDB Update Operators"""
-    
+
     # Field Update Operators
     SET = "$set"
     UNSET = "$unset"
@@ -142,26 +142,26 @@ class UpdateOperator:
     MAX = "$max"
     CURRENT_DATE = "$currentDate"
     RENAME = "$rename"
-    
+
     # Array Update Operators
     ADD_TO_SET = "$addToSet"
     POP = "$pop"
     PULL = "$pull"
     PUSH = "$push"
     PULL_ALL = "$pullAll"
-    
+
     # Array Update Modifiers
     EACH = "$each"
     POSITION = "$position"
     SLICE = "$slice"
     SORT = "$sort"
-    
+
     # Bitwise Update Operator
     BIT = "$bit"
 
 
 __all__ = [
-    'Operator',
-    'AggregateOperator', 
-    'UpdateOperator',
+    "Operator",
+    "AggregateOperator",
+    "UpdateOperator",
 ]

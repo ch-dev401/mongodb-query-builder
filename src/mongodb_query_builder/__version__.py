@@ -4,8 +4,10 @@ __version__ = "0.1.0"
 __author__ = "Christian De Asis"
 __email__ = "cdeasis923@gmail.com"
 __license__ = "MIT"
-__description__ = "A fluent, type-safe query builder for MongoDB with support for aggregations and Atlas Search"
-__url__ = "https://github.com/yourusername/mongodb-query-builder"
+__description__ = (
+    "A fluent, type-safe query builder for MongoDB with support for aggregations and Atlas Search"
+)
+__url__ = "https://github.com/ch-dev401/mongodb-query-builder"
 
 __all__ = [
     "__version__",

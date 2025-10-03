@@ -164,5 +164,5 @@ Contributions are welcome! Please see [CONTRIBUTING.md](docs/CONTRIBUTING.md) fo
 
 ## Support
 
-- GitHub Issues: [Report bugs or request features](https://github.com/yourusername/mongodb-query-builder/issues)
-- Documentation: [Full documentation](https://github.com/yourusername/mongodb-query-builder)
+- GitHub Issues: [Report bugs or request features](https://github.com/ch-dev401/mongodb-query-builder/issues)
+- Documentation: [Full documentation](https://github.com/ch-dev401/mongodb-query-builder)
