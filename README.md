@@ -150,9 +150,25 @@ search = AtlasSearchBuilder().compound(compound).build_stage()
 
 ## Documentation
 
-- [Full API Documentation](docs/API.md)
-- [Usage Examples](docs/EXAMPLES.md)
-- [Contributing Guidelines](docs/CONTRIBUTING.md)
+### 📚 Getting Started
+- [Installation & Quick Start](docs/markdown/getting-started.md)
+- [Basic Queries Tutorial](docs/markdown/tutorials/01-basic-queries.md)
+
+### 🔧 API Reference
+- [QueryFilter API](docs/markdown/api/query-filter.md) - Query building methods
+- [AggregateBuilder API](docs/markdown/api/aggregate-builder.md) - Aggregation pipeline methods
+- [AtlasSearchBuilder API](docs/markdown/api/atlas-search-builder.md) - Atlas Search methods
+
+### 📖 Guides
+- [Migration Guide](docs/markdown/migration-guide.md) - Convert from raw MongoDB queries
+- [Performance Guide](docs/markdown/performance-guide.md) - Optimization best practices
+
+### 🛠️ Development
+- [Contributing Guidelines](CONTRIBUTING.md)
+
+### 📐 Full Documentation
+- [Documentation Overview](docs/markdown/README.md) - Complete documentation index
+- Online documentation available at: *(coming soon)*
 
 ## License
 
