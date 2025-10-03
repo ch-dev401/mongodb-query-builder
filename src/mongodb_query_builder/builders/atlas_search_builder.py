@@ -7,7 +7,7 @@ support for compound queries, facets, and various search operators.
 
 from typing import Any, Dict, List, Optional, Union
 
-from ..exceptions import AtlasSearchError
+from ..exceptions import AtlasSearchError, ValidationError
 from ..operators import AggregateOperator
 from ..utils import validate_string_not_empty, validate_at_least_one
 
@@ -134,17 +134,22 @@ class ClauseBuilder:
         Returns:
             Self for chaining
         """
-        validate_string_not_empty(query, "text query")
-        if not path:
-            raise AtlasSearchError("text() requires a path")
-        
-        clause = {"text": {"query": query, "path": path}}
-        if fuzzy:
-            clause["text"]["fuzzy"] = fuzzy
-        if score:
-            clause["text"]["score"] = {"boost": {"value": score}}
-        self._clause_list.append(clause)
-        return self
+        try:
+            validate_string_not_empty(query, "text query")
+            
+            if not path:
+                raise AtlasSearchError("text() requires a path")
+            
+            clause = {"text": {"query": query, "path": path}}
+            if fuzzy:
+                clause["text"]["fuzzy"] = fuzzy
+            if score:
+                clause["text"]["score"] = {"boost": {"value": score}}
+            self._clause_list.append(clause)
+            return self
+
+        except ValidationError as e:
+            raise AtlasSearchError(e)
     
     def phrase(self, query: str, path: Union[str, List[str]], 
                slop: int = 0, score: Optional[float] = None) -> 'ClauseBuilder':
@@ -160,16 +165,20 @@ class ClauseBuilder:
         Returns:
             Self for chaining
         """
-        validate_string_not_empty(query, "phrase query")
-        if not path:
-            raise AtlasSearchError("phrase() requires a path")
-        
-        clause = {"phrase": {"query": query, "path": path, "slop": slop}}
-        if score:
-            clause["phrase"]["score"] = {"boost": {"value": score}}
-        self._clause_list.append(clause)
-        return self
-    
+        try:
+            validate_string_not_empty(query, "phrase query")
+            if not path:
+                raise AtlasSearchError("phrase() requires a path")
+            
+            clause = {"phrase": {"query": query, "path": path, "slop": slop}}
+            if score:
+                clause["phrase"]["score"] = {"boost": {"value": score}}
+            self._clause_list.append(clause)
+            return self
+
+        except ValidationError as e:
+            raise AtlasSearchError(e)
+
     def wildcard(self, query: str, path: Union[str, List[str]], 
                  allow_analyzed_field: bool = False,
                  score: Optional[float] = None) -> 'ClauseBuilder':
@@ -245,24 +254,27 @@ class ClauseBuilder:
         Returns:
             Self for chaining
         """
-        validate_string_not_empty(path, "range path")
-        validate_at_least_one(gt, gte, lt, lte, context="At least one range boundary")
-        
-        range_config = {"path": path}
-        if gt is not None:
-            range_config["gt"] = gt
-        if gte is not None:
-            range_config["gte"] = gte
-        if lt is not None:
-            range_config["lt"] = lt
-        if lte is not None:
-            range_config["lte"] = lte
-        
-        clause = {"range": range_config}
-        if score:
-            clause["range"]["score"] = {"boost": {"value": score}}
-        self._clause_list.append(clause)
-        return self
+        try:
+            validate_string_not_empty(path, "range path")
+            validate_at_least_one(gt, gte, lt, lte, context="At least one range boundary")
+            
+            range_config = {"path": path}
+            if gt is not None:
+                range_config["gt"] = gt
+            if gte is not None:
+                range_config["gte"] = gte
+            if lt is not None:
+                range_config["lt"] = lt
+            if lte is not None:
+                range_config["lte"] = lte
+            
+            clause = {"range": range_config}
+            if score:
+                clause["range"]["score"] = {"boost": {"value": score}}
+            self._clause_list.append(clause)
+            return self
+        except ValidationError as e:
+            raise AtlasSearchError(e)
     
     def equals(self, path: str, value: Any, score: Optional[float] = None) -> 'ClauseBuilder':
         """

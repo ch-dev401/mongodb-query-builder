@@ -8,7 +8,7 @@ comprehensive support for all aggregation stages.
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 
-from ..exceptions import AggregateBuilderError
+from ..exceptions import AggregateBuilderError, ValidationError
 from ..operators import AggregateOperator
 from ..utils import ensure_dollar_prefix, validate_positive_number, validate_string_not_empty
 from .query_filter import QueryFilter
@@ -140,8 +140,12 @@ class AggregateBuilder:
         Returns:
             Self for chaining
         """
-        validate_positive_number(count, "limit count")
-        
+        try:            
+            validate_positive_number(count, "limit count")
+
+        except ValidationError as e:
+            raise AggregateBuilderError(e)
+
         self._pipeline.append({AggregateOperator.LIMIT: count})
         return self
     
@@ -155,7 +159,11 @@ class AggregateBuilder:
         Returns:
             Self for chaining
         """
-        validate_positive_number(count, "skip count", allow_zero=True)
+        try:
+            
+            validate_positive_number(count, "skip count", allow_zero=True)
+        except ValidationError as e:
+            raise AggregateBuilderError(e)
         
         self._pipeline.append({AggregateOperator.SKIP: count})
         return self
@@ -178,10 +186,15 @@ class AggregateBuilder:
             >>> .unwind("tags", preserve_null=True)  # Keep null/empty arrays
             >>> .unwind("items", include_array_index="item_index")
         """
-        validate_string_not_empty(path, "unwind path")
+
+        try:
+            validate_string_not_empty(path, "unwind path")
         
-        # Ensure path starts with $
-        path = ensure_dollar_prefix(path)
+            # Ensure path starts with $
+            path = ensure_dollar_prefix(path)
+        
+        except ValidationError as e:
+            raise AggregateBuilderError(e)
         
         if preserve_null or include_array_index:
             unwind_config: Dict[str, Any] = {"path": path}
@@ -331,7 +344,12 @@ class AggregateBuilder:
             >>> .replace_root({"$mergeObjects": ["$doc1", "$doc2"]})
         """
         if isinstance(new_root, str):
-            new_root = ensure_dollar_prefix(new_root)
+            try:
+                new_root = ensure_dollar_prefix(new_root)
+            
+            except ValidationError as e:
+                raise AggregateBuilderError(e)
+
             new_root_config = {"newRoot": new_root}
         else:
             new_root_config = {"newRoot": new_root}
@@ -350,7 +368,11 @@ class AggregateBuilder:
             Self for chaining
         """
         if isinstance(replacement, str):
-            replacement = ensure_dollar_prefix(replacement)
+            try:
+                replacement = ensure_dollar_prefix(replacement)
+            
+            except ValidationError as e:
+                raise AggregateBuilderError(e)
         
         self._pipeline.append({AggregateOperator.REPLACE_WITH: replacement})
         return self
@@ -404,8 +426,12 @@ class AggregateBuilder:
         if not boundaries or len(boundaries) < 2:
             raise AggregateBuilderError("bucket() requires at least 2 boundaries")
         
-        group_by = ensure_dollar_prefix(group_by)
-        
+        try:
+            group_by = ensure_dollar_prefix(group_by)
+
+        except ValidationError as e:
+            raise AggregateBuilderError(e)
+            
         bucket_config = {
             "groupBy": group_by,
             "boundaries": boundaries
@@ -440,10 +466,15 @@ class AggregateBuilder:
             ...     output={"count": {"$sum": 1}, "avg_rating": {"$avg": "$rating"}}
             ... )
         """
-        validate_string_not_empty(group_by, "bucket_auto group_by")
-        validate_positive_number(buckets, "bucket_auto buckets")
+        try:
+            
+            validate_string_not_empty(group_by, "bucket_auto group_by")
+            validate_positive_number(buckets, "bucket_auto buckets")
+            
+            group_by = ensure_dollar_prefix(group_by)
         
-        group_by = ensure_dollar_prefix(group_by)
+        except ValidationError as e:
+            raise AggregateBuilderError(e)
         
         bucket_config = {
             "groupBy": group_by,
@@ -467,8 +498,12 @@ class AggregateBuilder:
         Returns:
             Self for chaining
         """
-        validate_positive_number(size, "sample size")
+        try:        
+            validate_positive_number(size, "sample size")
         
+        except ValidationError as e:
+            raise AggregateBuilderError(e)
+
         self._pipeline.append({AggregateOperator.SAMPLE: {"size": size}})
         return self
     
@@ -482,7 +517,11 @@ class AggregateBuilder:
         Returns:
             Self for chaining
         """
-        validate_string_not_empty(field_name, "count field_name")
+        try:
+            validate_string_not_empty(field_name, "count field_name")
+        
+        except ValidationError as e:
+            raise AggregateBuilderError(e)
         
         self._pipeline.append({AggregateOperator.COUNT: field_name})
         return self
@@ -500,9 +539,13 @@ class AggregateBuilder:
         Example:
             >>> .sort_by_count("$category")
         """
-        validate_string_not_empty(expression, "sort_by_count expression")
+        try:
+            validate_string_not_empty(expression, "sort_by_count expression")
         
-        expression = ensure_dollar_prefix(expression)
+            expression = ensure_dollar_prefix(expression)
+        
+        except ValidationError as e:
+            raise AggregateBuilderError(e)
         
         self._pipeline.append({AggregateOperator.SORT_BY_COUNT: expression})
         return self
@@ -535,14 +578,18 @@ class AggregateBuilder:
                 "connect_from_field, connect_to_field, and as_field"
             )
         
-        graph_config = {
-            "from": from_collection,
-            "startWith": ensure_dollar_prefix(start_with),
-            "connectFromField": connect_from_field,
-            "connectToField": connect_to_field,
-            "as": as_field
-        }
+        try:
+            graph_config = {
+                "from": from_collection,
+                "startWith": ensure_dollar_prefix(start_with),
+                "connectFromField": connect_from_field,
+                "connectToField": connect_to_field,
+                "as": as_field
+            }
         
+        except ValidationError as e:
+            raise AggregateBuilderError(e)
+            
         if max_depth is not None:
             graph_config["maxDepth"] = max_depth
         if depth_field:
@@ -564,16 +611,19 @@ class AggregateBuilder:
         Returns:
             Self for chaining
         """
-        validate_string_not_empty(collection, "union_with collection")
-        
-        union_config: Union[str, Dict[str, Any]]
-        if pipeline:
-            union_config = {"coll": collection, "pipeline": pipeline}
-        else:
-            union_config = collection
-        
-        self._pipeline.append({AggregateOperator.UNION_WITH: union_config})
-        return self
+        try:
+            validate_string_not_empty(collection, "union_with collection")
+
+            union_config: Union[str, Dict[str, Any]]
+            if pipeline:
+                union_config = {"coll": collection, "pipeline": pipeline}
+            else:
+                union_config = collection
+            
+            self._pipeline.append({AggregateOperator.UNION_WITH: union_config})
+            return self
+        except ValidationError as e:
+            raise AggregateBuilderError(e)
     
     def out(self, collection: str, db: Optional[str] = None) -> 'AggregateBuilder':
         """
@@ -586,15 +636,19 @@ class AggregateBuilder:
         Returns:
             Self for chaining
         """
-        validate_string_not_empty(collection, "out collection")
-        
-        if db:
-            out_config = {"db": db, "coll": collection}
-        else:
-            out_config = collection
-        
-        self._pipeline.append({AggregateOperator.OUT: out_config})
-        return self
+        try:
+            validate_string_not_empty(collection, "out collection")
+            
+            if db:
+                out_config = {"db": db, "coll": collection}
+            else:
+                out_config = collection
+            
+            self._pipeline.append({AggregateOperator.OUT: out_config})
+            return self
+
+        except ValidationError as e:
+            raise AggregateBuilderError(e)
     
     def merge(self, into: Union[str, Dict[str, str]], 
               on: Optional[Union[str, List[str]]] = None,
