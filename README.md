@@ -151,23 +151,23 @@ search = AtlasSearchBuilder().compound(compound).build_stage()
 ## Documentation
 
 ### 📚 Getting Started
-- [Installation & Quick Start](docs/markdown/getting-started.md)
-- [Basic Queries Tutorial](docs/markdown/tutorials/01-basic-queries.md)
+- [Installation & Quick Start](https://github.com/ch-dev401/mongodb-query-builder/blob/master/docs/markdown/getting-started.md)
+- [Basic Queries Tutorial](https://github.com/ch-dev401/mongodb-query-builder/blob/master/docs/markdown/tutorials/01-basic-queries.md)
 
 ### 🔧 API Reference
-- [QueryFilter API](docs/markdown/api/query-filter.md) - Query building methods
-- [AggregateBuilder API](docs/markdown/api/aggregate-builder.md) - Aggregation pipeline methods
-- [AtlasSearchBuilder API](docs/markdown/api/atlas-search-builder.md) - Atlas Search methods
+- [QueryFilter API](https://github.com/ch-dev401/mongodb-query-builder/blob/master/docs/markdown/api/query-filter.md) - Query building methods
+- [AggregateBuilder API](https://github.com/ch-dev401/mongodb-query-builder/blob/master/docs/markdown/api/aggregate-builder.md) - Aggregation pipeline methods
+- [AtlasSearchBuilder API](https://github.com/ch-dev401/mongodb-query-builder/blob/master/docs/markdown/api/atlas-search-builder.md) - Atlas Search methods
 
 ### 📖 Guides
-- [Migration Guide](docs/markdown/migration-guide.md) - Convert from raw MongoDB queries
-- [Performance Guide](docs/markdown/performance-guide.md) - Optimization best practices
+- [Migration Guide](https://github.com/ch-dev401/mongodb-query-builder/blob/master/docs/markdown/migration-guide.md) - Convert from raw MongoDB queries
+- [Performance Guide](https://github.com/ch-dev401/mongodb-query-builder/blob/master/docs/markdown/performance-guide.md) - Optimization best practices
 
 ### 🛠️ Development
 - [Contributing Guidelines](CONTRIBUTING.md)
 
 ### 📐 Full Documentation
-- [Documentation Overview](docs/markdown/README.md) - Complete documentation index
+- [Documentation Overview](https://github.com/ch-dev401/mongodb-query-builder/blob/master/docs/markdown/README.md) - Complete documentation index
 - Online documentation available at: *(coming soon)*
 
 ## License
@@ -176,7 +176,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines.
+Contributions are welcome! Please see [CONTRIBUTING.md](https://github.com/ch-dev401/mongodb-query-builder/blob/master/docs/CONTRIBUTING.md) for guidelines.
 
 ## Support
 
