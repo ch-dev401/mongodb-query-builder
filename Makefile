@@ -25,7 +25,10 @@ help:
 	@echo "  make upload           Upload to PyPI"
 	@echo ""
 	@echo "Documentation:"
-	@echo "  make docs             Build documentation"
+	@echo "  make docs             Build Sphinx documentation"
+	@echo "  make mkdocs-serve     Serve MkDocs locally (port 8000)"
+	@echo "  make mkdocs-build     Build MkDocs site"
+	@echo "  make mkdocs-deploy    Deploy MkDocs with mike (versioning)"
 
 install:
 	pip install -e .
@@ -81,6 +84,15 @@ upload: build
 
 docs:
 	cd docs && make html
+
+mkdocs-serve:
+	mkdocs serve
+
+mkdocs-build:
+	mkdocs build
+
+mkdocs-deploy:
+	mike deploy --push --update-aliases $(VERSION) latest
 
 # Shortcut aliases
 fmt: format

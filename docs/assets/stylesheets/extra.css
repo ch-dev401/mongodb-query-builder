@@ -1,0 +1,78 @@
+/* Extra CSS for MongoDB Query Builder Documentation */
+
+/* Custom color scheme */
+:root {
+    --md-primary-fg-color: #00684a;
+    --md-primary-fg-color--light: #00a074;
+    --md-primary-fg-color--dark: #00452e;
+    --md-accent-fg-color: #13aa52;
+}
+
+/* MongoDB brand colors for dark mode */
+[data-md-color-scheme="slate"] {
+    --md-primary-fg-color: #13aa52;
+    --md-primary-fg-color--light: #21c366;
+    --md-primary-fg-color--dark: #00684a;
+    --md-accent-fg-color: #00ed64;
+}
+
+/* Code block styling */
+.highlight pre {
+    border-radius: 8px;
+}
+
+/* Admonition styling */
+.md-typeset .admonition,
+.md-typeset details {
+    border-radius: 8px;
+}
+
+/* Table styling */
+.md-typeset table:not([class]) {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Navigation enhancement */
+.md-nav__link--active {
+    font-weight: 600;
+}
+
+/* Search result highlighting */
+.md-search-result mark {
+    background-color: var(--md-accent-fg-color);
+    color: var(--md-default-bg-color);
+}
+
+/* Version selector styling */
+.md-version__current {
+    font-weight: 600;
+}
+
+/* API reference styling */
+.doc-class > header {
+    border-left: 4px solid var(--md-primary-fg-color);
+    padding-left: 1rem;
+}
+
+.doc-function > header {
+    border-left: 4px solid var(--md-accent-fg-color);
+    padding-left: 1rem;
+}
+
+/* Mermaid diagram styling */
+.mermaid {
+    text-align: center;
+}
+
+/* Footer styling */
+.md-footer-meta {
+    background-color: var(--md-default-fg-color--lightest);
+}
+
+/* Mobile navigation */
+@media screen and (max-width: 76.1875em) {
+    .md-nav--primary .md-nav__title {
+        background-color: var(--md-primary-fg-color);
+    }
+}

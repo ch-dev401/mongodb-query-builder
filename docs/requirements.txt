@@ -1,0 +1,30 @@
+# Documentation dependencies for MongoDB Query Builder
+
+# MkDocs core
+mkdocs>=1.6.0
+mkdocs-material>=9.5.0
+
+# MkDocs plugins
+mkdocstrings>=0.25.0
+mkdocstrings-python>=1.10.0
+mkdocs-autorefs>=1.0.0
+
+# MkDocs Material extensions
+mkdocs-material-extensions>=1.3.0
+
+# Python dependencies for autodoc
+griffe>=0.45.0
+
+# Markdown extensions
+pymdown-extensions>=10.7.0
+markdown>=3.5.0
+
+# For PDF generation
+mkdocs-pdf-export-plugin>=0.5.10
+
+# For versioning
+mike>=2.0.0
+
+# Additional tools
+mkdocs-minify-plugin>=0.8.0
+mkdocs-redirects>=1.2.0
