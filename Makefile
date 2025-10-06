@@ -29,6 +29,11 @@ help:
 	@echo "  make mkdocs-serve     Serve MkDocs locally (port 8000)"
 	@echo "  make mkdocs-build     Build MkDocs site"
 	@echo "  make mkdocs-deploy    Deploy MkDocs with mike (versioning)"
+	@echo ""
+	@echo "Version Management:"
+	@echo "  make version VERSION=X.Y.Z    Update version in all files"
+	@echo "  make version-check            Show current version"
+	@echo "  make release VERSION=X.Y.Z    Update version, build, and tag"
 
 install:
 	pip install -e .
@@ -93,6 +98,23 @@ mkdocs-build:
 
 mkdocs-deploy:
 	mike deploy --push --update-aliases $(VERSION) latest
+
+version:
+	@python scripts/update_version.py $(VERSION)
+
+version-check:
+	@python scripts/check_version.py
+
+release: version build
+	@echo "Creating git tag v$(VERSION)..."
+	@git add -A
+	@git commit -m "Release version $(VERSION)"
+	@git tag -a v$(VERSION) -m "Release version $(VERSION)"
+	@echo ""
+	@echo "Release prepared! Next steps:"
+	@echo "  1. Review changes: git show"
+	@echo "  2. Push to remote: git push origin main --tags"
+	@echo "  3. Upload to PyPI: make upload"
 
 # Shortcut aliases
 fmt: format
