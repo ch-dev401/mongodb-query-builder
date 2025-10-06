@@ -111,7 +111,7 @@ extra:
       link: https://pypi.org/project/mongodb-query-builder/
   version:
     provider: mike
-    default: stable
+    default: 1.0.2.0.1
 
 extra_css:
   - assets/stylesheets/extra.css

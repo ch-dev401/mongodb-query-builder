@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mongodb-query-builder"
-version = "1.0.1"
+version = "1.0.2"
 description = "A fluent, type-safe query builder for MongoDB with support for aggregations and Atlas Search"
 readme = "README.md"
 requires-python = ">=3.8"
