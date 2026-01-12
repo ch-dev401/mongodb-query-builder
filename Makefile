@@ -47,21 +47,22 @@ install-test:
 clean: clean-build clean-pyc
 
 clean-build:
-	rm -rf build/
-	rm -rf dist/
-	rm -rf .eggs/
-	find . -name '*.egg-info' -exec rm -rf {} +
-	find . -name '*.egg' -exec rm -f {} +
+	-@if exist build rd /s /q build 2>nul
+	-@if exist dist rd /s /q dist 2>nul
+	-@if exist .eggs rd /s /q .eggs 2>nul
+	-@for /d /r %%i in (*.egg-info) do @echo %%i | findstr /i /v "\\venv\\" | findstr /i /v "\\.venv\\" | findstr /i /v "\\env\\" > nul && if exist "%%i" rd /s /q "%%i" 2>nul
+	-@for /r %%i in (*.egg) do @echo %%i | findstr /i /v "\\venv\\" | findstr /i /v "\\.venv\\" | findstr /i /v "\\env\\" > nul && if exist "%%i" del /f /q "%%i" 2>nul
 
 clean-pyc:
-	find . -name '*.pyc' -exec rm -f {} +
-	find . -name '*.pyo' -exec rm -f {} +
-	find . -name '*~' -exec rm -f {} +
-	find . -name '__pycache__' -exec rm -rf {} +
-	find . -name '.pytest_cache' -exec rm -rf {} +
-	find . -name '.mypy_cache' -exec rm -rf {} +
-	rm -f .coverage
-	rm -rf htmlcov/
+	-@for /r %%i in (*.pyc) do @echo %%i | findstr /i /v "\\venv\\" | findstr /i /v "\\.venv\\" | findstr /i /v "\\env\\" > nul && if exist "%%i" del /f /q "%%i" 2>nul
+	-@for /r %%i in (*.pyo) do @echo %%i | findstr /i /v "\\venv\\" | findstr /i /v "\\.venv\\" | findstr /i /v "\\env\\" > nul && if exist "%%i" del /f /q "%%i" 2>nul
+	-@for /r %%i in (*~) do @echo %%i | findstr /i /v "\\venv\\" | findstr /i /v "\\.venv\\" | findstr /i /v "\\env\\" > nul && if exist "%%i" del /f /q "%%i" 2>nul
+	-@for /d /r %%i in (__pycache__) do @echo %%i | findstr /i /v "\\venv\\" | findstr /i /v "\\.venv\\" | findstr /i /v "\\env\\" > nul && if exist "%%i" rd /s /q "%%i" 2>nul
+	-@for /d /r %%i in (.pytest_cache) do @echo %%i | findstr /i /v "\\venv\\" | findstr /i /v "\\.venv\\" | findstr /i /v "\\env\\" > nul && if exist "%%i" rd /s /q "%%i" 2>nul
+	-@for /d /r %%i in (.mypy_cache) do @echo %%i | findstr /i /v "\\venv\\" | findstr /i /v "\\.venv\\" | findstr /i /v "\\env\\" > nul && if exist "%%i" rd /s /q "%%i" 2>nul
+	-@if exist .coverage del /f /q .coverage 2>nul
+	-@if exist htmlcov rd /s /q htmlcov 2>nul
+
 
 format:
 	black src tests

@@ -33,7 +33,10 @@ from .builders import (
     AtlasSearchBuilder,
     ClauseBuilder,
     CompoundBuilder,
+    IndexField,
     QueryFilter,
+    SearchModel,
+    SearchQuery,
 )
 from .exceptions import (
     AggregateBuilderError,
@@ -62,6 +65,10 @@ __all__ = [
     "AtlasSearchBuilder",
     "CompoundBuilder",
     "ClauseBuilder",
+    # Search models
+    "IndexField",
+    "SearchModel",
+    "SearchQuery",
     # Operators
     "Operator",
     "AggregateOperator",
