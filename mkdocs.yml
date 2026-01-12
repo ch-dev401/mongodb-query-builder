@@ -70,6 +70,7 @@ nav:
     - QueryFilter: api/query-filter.md
     - AggregateBuilder: api/aggregate-builder.md
     - AtlasSearchBuilder: api/atlas-search-builder.md
+    - Search Models: api/search-models.md
   - Guides:
     - Migration Guide: migration-guide.md
     - Performance Guide: performance-guide.md
@@ -111,7 +112,7 @@ extra:
       link: https://pypi.org/project/mongodb-query-builder/
   version:
     provider: mike
-    default: 1.0.2.0.1
+    default: latest
 
 extra_css:
   - assets/stylesheets/extra.css
