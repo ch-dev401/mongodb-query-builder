@@ -1,6 +1,6 @@
 """Version information for mongodb-query-builder."""
 
-__version__ = "1.0.2"
+__version__ = "1.1.0"
 __author__ = "Christian De Asis"
 __email__ = "cdeasis923@gmail.com"
 __license__ = "MIT"

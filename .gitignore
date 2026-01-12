@@ -137,6 +137,7 @@ dmypy.json
 *.sqlite
 .env.local
 .env.*.local
+.pypirc
 
 # memory bank files
 /memory-bank/

@@ -8,6 +8,7 @@ and Atlas Search queries.
 from .aggregate_builder import AggregateBuilder
 from .atlas_search_builder import AtlasSearchBuilder, ClauseBuilder, CompoundBuilder
 from .query_filter import QueryFilter
+from .search_models import IndexField, SearchModel, SearchQuery
 
 __all__ = [
     "QueryFilter",
@@ -15,4 +16,7 @@ __all__ = [
     "AtlasSearchBuilder",
     "CompoundBuilder",
     "ClauseBuilder",
+    "IndexField",
+    "SearchModel",
+    "SearchQuery",
 ]
